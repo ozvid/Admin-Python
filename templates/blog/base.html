@@ -1,0 +1,52 @@
+<!--
+*@copyright   : OZVID Technologies Pvt. Ltd < https://ozvid.com >  
+*@author      : Shiv Charan Panjeta < shiv@ozvid.com >  
+-->
+
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Blog &middot; {{ block.super }}{% endblock %}
+
+{% block content-wrapper %}
+  <div class="row">
+    <div class="col-md-9">
+      <div class="blog">
+        {% block content %}{% endblock %}
+      </div>
+    </div>
+
+    <div class="col-md-3">
+
+      {% block sidebar-right %}
+<div class="w3-card w3-margin">
+    <div class="w3-container w3-padding" style="box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);background-color: #f1f1f1 !important;">
+      <h4>Browse Posts</h4>
+    </div>
+    <ul class="w3-ul w3-hoverable w3-white">
+      <li class="w3-padding-16">
+        <img src="{% static 'images/archives_logo.jpg' %}" alt="Image" class="w3-left w3-margin-right" style="width:50px">
+        <span class="w3-large"><a href="{% url 'blog:post-archive' %}">Archive</a></span>
+      </li>
+    </ul>
+  </div>
+
+        {% if post_tags %}
+          <div class="w3-card w3-margin">
+    <div class="w3-container w3-padding" style="box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);background-color: #f1f1f1 !important;">
+      <h4>Tags</h4>
+    </div>
+    <ul class="w3-ul w3-hoverable w3-white">
+{% for post_tag in post_tags %}
+      <li class="w3-padding-16">
+        <img src="{% static 'images/tag.ico' %}" alt="Image" class="w3-left w3-margin-right" style="width: 30px;
+height: 30px;">
+        <span class="w3-large"><a href="{% url 'blog:post-list-by-tag' post_tag.slug %}">{{ post_tag.name }}</a></span>
+      </li>
+{% endfor %}
+    </ul>
+  </div>
+        {% endif %}
+      {% endblock %}
+    </div>
+  </div>
+{% endblock %}

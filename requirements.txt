@@ -1,0 +1,10 @@
+django-ckeditor
+django-debug-toolbar
+django-js-asset    
+django==2.0.7  
+mysqlclient
+olefile  
+pillow
+pytz    
+sqlparse  
+django-jet

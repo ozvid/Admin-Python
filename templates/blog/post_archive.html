@@ -1,0 +1,39 @@
+<!--
+*@copyright   : OZVID Technologies Pvt. Ltd < https://ozvid.com >  
+*@author      : Shiv Charan Panjeta < shiv@ozvid.com >  
+-->
+
+{% extends 'blog/base.html' %}
+
+{% block title %}Archive &middot; {{ block.super }}{% endblock %}
+
+{% block breadcrumbs %}
+  {{ block.super }}
+  <li><a href="{% url 'blog:post-list' %}">Blog</a></li>
+  <li class="active">Archive</li>
+{% endblock %}
+
+{% block content %}
+  <div class="post-archive">
+    <h1>Archive</h1>
+
+    {% for year, posts in years.items %}
+          <div class="w3-card w3-margin">
+    <div class="w3-container w3-padding" style="box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);background-color: #f1f1f1 !important;">
+     <h3>{{ year }}</h3>
+    </div>
+</div>
+
+      <ul class="w3-ul w3-hoverable w3-white" style="margin: 20px;">
+        {% for post in posts %}
+ <li class="w3-padding-16">
+        <span class="w3-large">{{ post.published_date|date:"M d" }}</span> | 
+            <a href="{% url 'blog:post-detail' slug=post.slug %}">{{ post.title }}</a>
+          </li>
+        {% endfor %}
+      </ul>
+    {% empty %}
+     <ul> <li>No posts yet.</li></ul>
+    {% endfor %}
+  </div>
+{% endblock content %}

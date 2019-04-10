@@ -1,0 +1,40 @@
+<!--
+*@copyright   : OZVID Technologies Pvt. Ltd < https://ozvid.com >  
+*@author      : Shiv Charan Panjeta < shiv@ozvid.com >  
+-->
+
+{% extends 'blog/base.html' %}
+{% load static %}
+{% block breadcrumbs %}
+  {{ block.super }}
+  <li class="active">Blog</li>
+{% endblock %}
+
+{% block content %}
+
+
+  {% for post in posts %}
+
+  <div class="w3-card-4 w3-margin">
+	{{ post.body|safe }}
+    <div class="w3-container">
+      <h3><b><a href="{% url 'blog:post-detail' slug=post.slug %}">{{ post.title }}</a></b></h3>
+      <h5><i class="fa fa-clock-o" aria-hidden="true"></i>&nbsp;<span class="w3-opacity">{{ post.published_date|date:"F j, Y" }}</span></h5>
+    </div>
+
+    <div class="w3-container">
+      <p>{{ post.snippet|safe|truncatewords:100 }}</p>
+      <div class="w3-row">
+        <div class="w3-col m8 s12">
+          <p><a class="w3-button w3-padding-large w3-white w3-border" href="{% url 'blog:post-detail' slug=post.slug %}"><b>READ MORE »</b></a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  {% endfor %}
+
+
+  {% include 'core/includes/_pagination.html' with url_name='blog:post-list' %}
+{% endblock content %}
